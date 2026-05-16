@@ -253,9 +253,11 @@
     .figure-card img,
     .paper-preview img {
       width: 100%;
-      height: auto;
+      max-height: 380px;
+      object-fit: cover;
+      object-position: top center;
       display: block;
-      border-radius: 18px;
+      border-radius: 14px;
     }
 
     .caption {
@@ -398,19 +400,21 @@
       font-size: 0.95rem;
     }
 
-    .paper-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-      gap: 26px;
-      align-items: start;
+    .paper-preview {
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 12px 34px rgba(1, 68, 82, 0.08);
     }
 
-    .paper-preview {
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: #ffffff;
-      box-shadow: var(--shadow);
+    .paper-layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      max-width: 980px;
+      margin: 0 auto;
     }
 
     .code-note {
