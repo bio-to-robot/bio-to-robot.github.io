@@ -298,26 +298,27 @@
 
     .paper-layout {
       display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: 26px;
-      align-items: start;
-      max-width: 980px;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 34px;
+      align-items: center;
+      max-width: 1080px;
       margin: 0 auto;
     }
-
+    
     .paper-preview {
-      padding: 8px;
+      padding: 10px;
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 22px;
       background: #ffffff;
       box-shadow: 0 12px 34px rgba(1, 68, 82, 0.08);
     }
-
+    
     .paper-preview img {
       width: 100%;
-      height: 310px;
-      object-fit: cover;
-      object-position: top center;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
       display: block;
       border-radius: 14px;
     }
@@ -486,12 +487,12 @@
       }
 
       .paper-preview {
-        max-width: 280px;
+        max-width: 360px;
         margin: 0 auto;
       }
-
+      
       .paper-preview img {
-        height: 330px;
+        height: auto;
       }
 
       .buttons {
