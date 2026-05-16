@@ -154,38 +154,32 @@
 
     .authors {
       max-width: 1080px;
-      margin: 0 auto 16px;
+      margin: 0 auto 18px;
       font-size: clamp(1rem, 2vw, 1.18rem);
       color: #17353d;
       line-height: 1.85;
     }
 
-    .authors sup {
-      font-size: 0.7em;
-      margin-left: 1px;
-    }
-
-    .affiliations.compact {
+    .affiliation-logos {
       max-width: 980px;
-      margin: 16px auto 12px;
-      padding: 12px 18px;
+      margin: 18px auto 28px;
+      padding: 18px 22px;
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: 28px;
       background: rgba(255, 255, 255, 0.72);
-      color: var(--muted);
-      font-size: 0.94rem;
-      line-height: 1.6;
       box-shadow: 0 8px 22px rgba(1, 68, 82, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      flex-wrap: wrap;
     }
 
-    .affiliations strong {
-      color: #17353d;
-    }
-
-    .author-notes {
-      margin: 14px 0 24px;
-      color: var(--muted);
-      font-size: 0.95rem;
+    .affiliation-logos img {
+      max-height: 54px;
+      max-width: 190px;
+      object-fit: contain;
+      display: block;
     }
 
     .buttons {
@@ -479,8 +473,14 @@
         padding: 10px 16px;
       }
 
-      .affiliations.compact {
+      .affiliation-logos {
         border-radius: 20px;
+        gap: 18px;
+      }
+
+      .affiliation-logos img {
+        max-height: 42px;
+        max-width: 145px;
       }
     }
   </style>
@@ -503,22 +503,21 @@
       </p>
 
       <div class="authors">
-        Waqar Hussain Afridi<sup>1,2</sup>,
-        <a href="https://iahsant.github.io/" target="_blank" rel="noopener">Ahsan Tanveer</a><sup>1,2</sup>,
-        Rahdar Hussain Afridi<sup>1,2</sup>,
-        Muhammad Hamza<sup>1,2</sup>,
-        Mingxin Wu<sup>1,2,3</sup>,
-        Liang Li<sup>4,5,6,7,*</sup>,
-        Guangming Xie<sup>1,2,8,*</sup>
+        Waqar Hussain Afridi,
+        <a href="https://iahsant.github.io/" target="_blank" rel="noopener">Ahsan Tanveer</a>,
+        Rahdar Hussain Afridi,
+        Muhammad Hamza,
+        Mingxin Wu,
+        Liang Li,
+        Guangming Xie
       </div>
 
-      <div class="affiliations compact" aria-label="Affiliations">
-        <strong>Affiliations:</strong>
-        Peking University · Zhengzhou University · Max Planck Institute of Animal Behavior · University of Konstanz · Institute of Ocean Research, Peking University
-      </div>
-
-      <div class="author-notes">
-        <sup>*</sup> Corresponding authors · DOI: 10.1002/aisy.202501117
+      <div class="affiliation-logos" aria-label="Affiliation logos">
+        <img src="assets/pku-logo.png" alt="Peking University" />
+        <img src="assets/zhengzhou-logo.png" alt="Zhengzhou University" />
+        <img src="assets/max-planck-logo.png" alt="Max Planck Institute of Animal Behavior" />
+        <img src="assets/konstanz-logo.png" alt="University of Konstanz" />
+        <img src="assets/ocean-research-logo.jpg" alt="Institute of Ocean Research, Peking University" />
       </div>
 
       <div class="buttons">
@@ -718,7 +717,8 @@
   </main>
 
   <section class="managed-note" aria-label="Page management">
-    This project page is managed and maintained by:
+    This project page is managed by <strong>Ahsan Tanveer</strong> ·
+    Personal GitHub:
     <a href="https://github.com/iahsant" target="_blank" rel="noopener">github.com/iahsant</a>
   </section>
 </body>
