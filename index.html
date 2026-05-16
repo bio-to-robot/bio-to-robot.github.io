@@ -457,9 +457,15 @@
     }
 
     @media (max-width: 860px) {
-      .hero {
-        padding-top: 30px;
+      .paper-layout {
+        grid-template-columns: 1fr;
+        max-width: 620px;
       }
+    
+      .paper-preview img {
+        max-height: 320px;
+      }
+    }
 
       .grid-2,
       .grid-3,
