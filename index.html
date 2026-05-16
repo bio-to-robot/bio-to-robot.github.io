@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project page for the Advanced Intelligent Systems paper Bio-to-Robot Transfer of Fish Sensorimotor Dynamics via Interpretable Model." />
+  <meta name="keywords" content="bio-to-robot transfer, robotic fish, fish locomotion, electromyography, ARX, system identification, bioinspired robotics" />
+  <meta name="author" content="Waqar Hussain Afridi, Ahsan Tanveer, Rahdar Hussain Afridi, Muhammad Hamza, Mingxin Wu, Liang Li, Guangming Xie" />
+  <meta property="og:title" content="Bio-to-Robot Transfer of Fish Sensorimotor Dynamics via Interpretable Model" />
+  <meta property="og:description" content="Interpretable system identification transfers koi fish sensorimotor dynamics to a robotic fish without robot-specific retraining." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/teaser-fish-robot.png" />
+  <title>Bio-to-Robot Transfer of Fish Sensorimotor Dynamics</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7fffb;
+      --ink: #0a2530;
+      --muted: #526a72;
+      --muted-2: #78909a;
+      --water: #008ca5;
+      --water-dark: #006579;
+      --water-soft: #e4f8f7;
+      --coral: #ef6f61;
+      --coral-dark: #ce4d42;
+      --kelp: #2ebc88;
+      --sand: #fff8e8;
+      --card: rgba(255, 255, 255, 0.86);
+      --border: rgba(0, 101, 121, 0.16);
+      --shadow: 0 24px 70px rgba(1, 68, 82, 0.12);
+      --radius: 26px;
+      --maxw: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(46, 188, 136, 0.16), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(239, 111, 97, 0.12), transparent 30%),
+        linear-gradient(180deg, #f7fffb 0%, #effbfe 45%, #ffffff 100%);
+      line-height: 1.66;
+    }
+
+    a { color: var(--water-dark); text-decoration: none; }
+    a:hover { color: var(--coral-dark); text-decoration: underline; }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 42px 0 48px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -120px -80px auto -80px;
+      height: 450px;
+      background:
+        radial-gradient(circle at 18% 34%, rgba(0, 140, 165, 0.16), transparent 26%),
+        radial-gradient(circle at 82% 22%, rgba(239, 111, 97, 0.18), transparent 24%),
+        linear-gradient(135deg, rgba(228, 248, 247, 0.88), rgba(255, 248, 232, 0.72));
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -6%;
+      right: -6%;
+      bottom: -58px;
+      height: 170px;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220'%3E%3Cpath fill='%23ffffff' fill-opacity='0.78' d='M0,80 C200,150 320,10 520,78 C735,152 875,160 1080,88 C1240,32 1350,60 1440,98 L1440,220 L0,220 Z'/%3E%3Cpath fill='%23e4f8f7' fill-opacity='0.85' d='M0,130 C190,52 360,190 570,112 C770,38 930,42 1130,118 C1270,172 1370,130 1440,102 L1440,220 L0,220 Z'/%3E%3C/svg%3E") center bottom / cover no-repeat;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .journal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 9px 16px;
+      border: 1px solid rgba(0, 101, 121, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--water-dark);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 8px 22px rgba(0, 101, 121, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .journal-badge .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--coral), var(--kelp));
+      box-shadow: 0 0 0 5px rgba(46, 188, 136, 0.12);
+    }
+
+    .title {
+      max-width: 1080px;
+      margin: 0 auto 20px;
+      font-size: clamp(2.15rem, 5vw, 4.28rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.055em;
+      color: #07303d;
+    }
+
+    .title em {
+      font-style: normal;
+      color: var(--coral-dark);
+    }
+
+    .subtitle {
+      max-width: 920px;
+      margin: 0 auto 20px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 2vw, 1.24rem);
+    }
+
+    .authors {
+      max-width: 1080px;
+      margin: 0 auto 16px;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: #17353d;
+      line-height: 1.85;
+    }
+
+    .authors sup { font-size: 0.7em; margin-left: 1px; }
+
+    .affiliations {
+      max-width: 1010px;
+      margin: 20px auto 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      text-align: left;
+    }
+
+    .affiliation-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 76px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 28px rgba(1, 68, 82, 0.06);
+    }
+
+    .affiliation-card img { max-height: 44px; max-width: 132px; object-fit: contain; }
+    .affiliation-card .num { color: var(--coral-dark); font-weight: 800; }
+    .affiliation-card .label { color: var(--muted); font-size: 0.93rem; line-height: 1.35; }
+
+    .author-notes { margin: 14px 0 24px; color: var(--muted); font-size: 0.95rem; }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-width: 118px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1.5px solid var(--water);
+      background: linear-gradient(135deg, var(--water), var(--water-dark));
+      color: #ffffff;
+      font-weight: 800;
+      transition: all 0.18s ease;
+      box-shadow: 0 10px 22px rgba(0, 140, 165, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-1px); color: #ffffff; text-decoration: none; }
+    .btn.secondary { background: rgba(255, 255, 255, 0.82); color: var(--water-dark); box-shadow: none; }
+    .btn.secondary:hover { background: var(--water-soft); color: var(--coral-dark); }
+
+    .teaser-section { padding: 34px 0 34px; background: #ffffff; }
+
+    .teaser-card {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .teaser-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(0, 140, 165, 0.08), transparent 38%, rgba(239, 111, 97, 0.07));
+    }
+
+    .teaser-card img, .figure-card img, .paper-preview img {
+      width: 100%; height: auto; display: block; border-radius: 18px;
+    }
+
+    .caption {
+      max-width: 900px;
+      margin: 13px auto 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      text-align: center;
+    }
+
+    section { padding: 60px 0; border-top: 1px solid var(--border); }
+    section.alt { background: linear-gradient(180deg, rgba(228, 248, 247, 0.64), rgba(255, 248, 232, 0.38)); }
+
+    .section-title {
+      margin: 0 0 18px;
+      text-align: center;
+      font-size: clamp(1.72rem, 3vw, 2.36rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: #07303d;
+    }
+
+    .section-kicker {
+      text-align: center;
+      color: var(--coral-dark);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+
+    .section-lead {
+      max-width: 890px;
+      margin: 0 auto 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .text-block { max-width: 930px; margin: 0 auto; font-size: 1.04rem; color: #2c464e; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 26px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 10px 30px rgba(1, 68, 82, 0.07);
+      backdrop-filter: blur(10px);
+    }
+
+    .card h3 { margin: 0 0 10px; font-size: 1.17rem; color: #0b303c; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .result-number {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--coral-dark);
+      font-size: 2.08rem;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 24px auto 0; }
+    .tag { padding: 7px 12px; border-radius: 999px; background: #ffffff; border: 1px solid var(--border); color: var(--water-dark); font-weight: 700; font-size: 0.9rem; }
+
+    .figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 28px; }
+    .figure-card { padding: 14px; border-radius: var(--radius); border: 1px solid var(--border); background: #ffffff; box-shadow: var(--shadow); }
+    .figure-card h3 { margin: 12px 10px 4px; color: #0b303c; font-size: 1.06rem; }
+    .figure-card p { margin: 0 10px 10px; color: var(--muted); font-size: 0.95rem; }
+
+    .paper-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 26px; align-items: start; }
+    .paper-preview { padding: 12px; border: 1px solid var(--border); border-radius: 22px; background: #ffffff; box-shadow: var(--shadow); }
+
+    .code-note {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #ffffff;
+      color: var(--muted);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(1, 68, 82, 0.06);
+    }
+
+    pre {
+      max-width: 980px;
+      margin: 22px auto 0;
+      padding: 22px;
+      overflow-x: auto;
+      background: #06252f;
+      color: #eefefe;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(46, 188, 136, 0.16);
+    }
+
+    footer {
+      padding: 32px 0 42px;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+      background: #ffffff;
+    }
+
+    @media (max-width: 860px) {
+      .hero { padding-top: 30px; }
+      .affiliations, .grid-2, .grid-3, .figure-grid, .paper-layout { grid-template-columns: 1fr; }
+      .affiliation-card { align-items: flex-start; }
+      .buttons { gap: 10px; }
+      .btn { min-width: 105px; padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="journal-badge"><span class="dot"></span> Advanced Intelligent Systems · 2025</div>
+
+      <h1 class="title">
+        <em>Bio-to-Robot Transfer</em> of Fish Sensorimotor Dynamics via Interpretable Model
+      </h1>
+
+      <p class="subtitle">
+        A compact system-identification model learns koi EMG-to-tail dynamics and transfers them to a robotic fish without robot-specific retraining.
+      </p>
+
+      <div class="authors">
+        Waqar Hussain Afridi<sup>1,2</sup>,
+        <a href="https://iahsant.github.io/" target="_blank" rel="noopener">Ahsan Tanveer</a><sup>1,2</sup>,
+        Rahdar Hussain Afridi<sup>1,2</sup>,
+        Muhammad Hamza<sup>1,2</sup>,
+        Mingxin Wu<sup>1,2,3</sup>,
+        Liang Li<sup>4,5,6,7,*</sup>,
+        Guangming Xie<sup>1,2,8,*</sup>
+      </div>
+
+      <div class="affiliations" aria-label="Affiliations">
+        <div class="affiliation-card">
+          <span class="num">1–2</span>
+          <img src="assets/pku-logo.png" alt="Peking University" />
+          <span class="label">College of Engineering, Intelligent Biomimetic Design Lab, and State Key Laboratory for Turbulence and Complex Systems</span>
+        </div>
+        <div class="affiliation-card">
+          <span class="num">3</span>
+          <span class="label"><strong>Zhengzhou University</strong><br />School of Mechanics and Safety Engineering</span>
+        </div>
+        <div class="affiliation-card">
+          <span class="num">4–7</span>
+          <span class="label"><strong>Max Planck Institute of Animal Behavior</strong> and <strong>University of Konstanz</strong><br />Collective Behaviour, Biology, and Computer &amp; Information Science</span>
+        </div>
+        <div class="affiliation-card">
+          <span class="num">8</span>
+          <img src="assets/ocean-research-logo.jpg" alt="Institute of Ocean Research, Peking University" />
+          <span class="label">Institute of Ocean Research, Peking University</span>
+        </div>
+      </div>
+
+      <div class="author-notes"><sup>*</sup> Corresponding authors · DOI: 10.1002/aisy.202501117</div>
+
+      <div class="buttons">
+        <a class="btn" href="assets/biorob.pdf">📄 Paper</a>
+        <a class="btn secondary" href="https://doi.org/10.1002/aisy.202501117" target="_blank" rel="noopener">🔗 DOI</a>
+        <a class="btn secondary" href="#method">🌊 Method</a>
+        <a class="btn secondary" href="#results">📈 Results</a>
+        <a class="btn secondary" href="#citation">📚 Citation</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="teaser-section">
+      <div class="container">
+        <div class="teaser-card">
+          <img src="assets/teaser-fish-robot.png" alt="Real fish EMG, flow tunnel, robotic fish, and flow regimes" />
+        </div>
+        <div class="caption">
+          Experimental theme: biological muscle signals, hydrodynamic flow regimes, and a robotic-fish counterpart connected by interpretable dynamics.
+        </div>
+      </div>
+    </section>
+
+    <section id="abstract">
+      <div class="container">
+        <div class="section-kicker">Overview</div>
+        <h2 class="section-title">Abstract</h2>
+        <div class="text-block">
+          Swimming in fish arises from integrated neural, muscular, skeletal, and hydrodynamic processes that are hard to capture in compact robotic models. This project presents an interpretable system-identification framework that maps between electromyography (EMG) and kinematics in freely swimming koi, then tests whether the learned dynamics transfer to a robotic fish. A linear ARX architecture captures feedforward EMG-to-tail and feedback tail-to-EMG pathways, extracting interpretable quantities such as delay, gain, natural frequency, and damping. The fish-trained model is then evaluated on processed robotic PWM actuation signals to predict robotic tail displacement, demonstrating direct bio-to-robot transfer without robot-specific retraining.
+        </div>
+        <div class="tag-row" aria-label="Keywords">
+          <span class="tag">fish locomotion</span>
+          <span class="tag">EMG</span>
+          <span class="tag">robotic fish</span>
+          <span class="tag">ARX</span>
+          <span class="tag">system identification</span>
+          <span class="tag">bio-to-robot transfer</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="paper" class="alt">
+      <div class="container">
+        <div class="section-kicker">Publication</div>
+        <h2 class="section-title">Paper</h2>
+        <div class="paper-layout">
+          <div class="paper-preview">
+            <img src="assets/paper-cover.png" alt="First page preview of the Advanced Intelligent Systems paper" />
+          </div>
+          <div>
+            <p class="section-lead" style="text-align:left; margin-left:0;">
+              Published in <strong>Advanced Intelligent Systems</strong>. The article reports synchronized EMG and kinematic data from freely swimming koi across laminar, Kármán vortex, and reverse Kármán vortex flow regimes, followed by zero-shot evaluation on a robotic fish.
+            </p>
+            <div class="grid-2">
+              <div class="card">
+                <h3>Biological data</h3>
+                <p>Bilateral caudal EMG is rectified, smoothed, differenced left-to-right, and paired with video-derived tail displacement.</p>
+              </div>
+              <div class="card">
+                <h3>Robotic transfer</h3>
+                <p>Processed tail-servo PWM is used as the model input, allowing the fish-trained ARX model to predict robotic tail motion.</p>
+              </div>
+            </div>
+            <div class="buttons" style="justify-content:flex-start; margin-top:22px;">
+              <a class="btn" href="assets/biorob.pdf">Download PDF</a>
+              <a class="btn secondary" href="https://doi.org/10.1002/aisy.202501117" target="_blank" rel="noopener">Open DOI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="container">
+        <div class="section-kicker">Method</div>
+        <h2 class="section-title">Interpretable Bio-to-Robot Modeling</h2>
+        <p class="section-lead">
+          The site keeps the template’s single-page structure, but uses a water-inspired visual language: teal flow fields, coral koi accents, rounded glass cards, and cropped paper figures as evidence panels.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. Signal pairing</h3>
+            <p>Fish EMG envelopes and tail displacement are synchronized into input–output sequences for system identification.</p>
+          </div>
+          <div class="card">
+            <h3>2. ARX dynamics</h3>
+            <p>A low-order ARX model captures temporal input–output structure while preserving interpretable delays and gains.</p>
+          </div>
+          <div class="card">
+            <h3>3. Zero-shot robot test</h3>
+            <p>The same fish-trained model predicts robotic-fish tail displacement from processed PWM signals without retraining.</p>
+          </div>
+        </div>
+
+        <div class="figure-grid">
+          <div class="figure-card">
+            <img src="assets/signal-pipeline.png" alt="Signal processing pipeline for real fish and robotic fish" />
+            <h3>Signal processing pipeline</h3>
+            <p>Real-fish EMG and robotic PWM are processed into comparable model inputs.</p>
+          </div>
+          <div class="figure-card">
+            <img src="assets/arx-workflow.png" alt="ARX training, cross-validation, residual analysis, and robotic validation workflow" />
+            <h3>ARX validation workflow</h3>
+            <p>Fish-trained ARX models are evaluated across individuals and transferred to robotic-fish trials.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="alt">
+      <div class="container">
+        <div class="section-kicker">Results</div>
+        <h2 class="section-title">Cross-Domain Generalization</h2>
+        <div class="grid-3">
+          <div class="card">
+            <span class="result-number">0.86 ± 0.13</span>
+            <h3>Mean robotic R²</h3>
+            <p>Across 42 robotic datasets, the fish-trained ARX model closely matched measured tail displacement.</p>
+          </div>
+          <div class="card">
+            <span class="result-number">97.8%</span>
+            <h3>Higher PFI than DNN</h3>
+            <p>The ARX model substantially outperformed a deep neural-network baseline trained on the same biological datasets.</p>
+          </div>
+          <div class="card">
+            <span class="result-number">29 ms</span>
+            <h3>Identified delay</h3>
+            <p>The fitted dynamics expose biologically meaningful timing useful for low-latency robotic control design.</p>
+          </div>
+        </div>
+
+        <div class="figure-grid">
+          <div class="figure-card">
+            <img src="assets/robot-results.png" alt="ARX prediction performance and validation metrics on robotic fish datasets" />
+            <h3>Robotic-fish prediction metrics</h3>
+            <p>Prediction traces and heatmaps show strong agreement across laminar and KVS operating conditions.</p>
+          </div>
+          <div class="card">
+            <h3>Why the interpretable model works</h3>
+            <p>
+              The ARX structure models shared temporal and amplitude relationships—actuation delay, proportional gain, and oscillatory response—rather than memorizing high-capacity patterns. That makes it compact, explainable, and robust to the large biological-to-robotic domain shift.
+            </p>
+            <br />
+            <p>
+              Body-size similarity also matters: groups closer to the robotic fish standard length yielded more faithful transfer, supporting the paper’s morphology-aware interpretation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="code">
+      <div class="container">
+        <div class="section-kicker">Resources</div>
+        <h2 class="section-title">Code and Data</h2>
+        <div class="code-note">
+          Add your public repository link here when ready. The paper states that data supporting the findings are available from the corresponding author upon reasonable request.
+          <br /><br />
+          <strong>Suggested link targets:</strong> <code>GitHub</code>, <code>Supplementary Information</code>, <code>Video</code>, and <code>Dataset Request</code>.
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="alt">
+      <div class="container">
+        <div class="section-kicker">BibTeX</div>
+        <h2 class="section-title">Citation</h2>
+        <pre>@article{afridi2025bio_to_robot,
+  title   = {Bio-to-Robot Transfer of Fish Sensorimotor Dynamics via Interpretable Model},
+  author  = {Afridi, Waqar Hussain and Tanveer, Ahsan and Afridi, Rahdar Hussain and Hamza, Muhammad and Wu, Mingxin and Li, Liang and Xie, Guangming},
+  journal = {Advanced Intelligent Systems},
+  pages   = {e202501117},
+  year    = {2025},
+  doi     = {10.1002/aisy.202501117}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Project page for <strong>Bio-to-Robot Transfer of Fish Sensorimotor Dynamics via Interpretable Model</strong> · Advanced Intelligent Systems 2025
+  </footer>
+</body>
+</html>
